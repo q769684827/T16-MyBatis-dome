@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <!--namespace 指定本mapper映射文件关联那个接口-->
+<mapper namespace="test.dao.UserDao">
+    <!--测试1、查询用户表记录数-->
+        <!--id对应接口中的方法名,resultType返回值类型-->
+    <select id="getUserCount" resultType="int">
+          select count(1) from smbms_user
+    </select>
+    <!--测试2、查询所有用户-->
+    <select id="getUserList" resultType="User">
+          select * from smbms_user
+    </select>
+    <!--测试3、单条件模糊查询-->             <!--返回值类型-->
+    <select id="getUserListLikeByName" resultType="User"
+                  parameterType="string">/*参数类型*/
+          select * from smbms_user
+                where userName like concat('%',#{name},'%')
+    </select>
+    <!--测试4、多条件对象传参-->
+    <select id="getUserListParametersByUser" resultType="User"
+                parameterType="User">
+          /*以对象传参，#｛指定对应的对象属性名｝*/
+          select * from smbms_user
+                where userName like concat('%',#{userName},'%')
+                  and userRole=#{userRole}
+    </select>
+    <!--测试5、多条件Map传参-->
+    <select id="getUserListParametersByMap" resultType="User"
+            parameterType="map">
+            /*以对象传参，#｛指定对应的键｝从而找到对应的值*/
+        select * from smbms_user
+                where userName like concat('%',#{A},'%')
+                  and userRole=#{B}
+    </select>
+</mapper>

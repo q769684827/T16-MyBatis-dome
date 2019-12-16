@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--1、读取数据库配置文件，外部引用-->
+    <properties resource="database.properties"/>
+    <!--内部动态引用-->
+  <!--  <properties  resource="database.properties" >
+        <property name="jdbc.driver" value="com.mysql.jdbc.Driver" />
+        <property name="jdbc.url" value="jdbc:mysql://127.0.0.1:3306/smbms?useUnicode=true&characterEncoding=utf-8" />
+        <property name="jdbc.username" value="root" />
+        <property name="jdbc.password" value="123456" />
+    </properties>-->
+
+    <!--2、加载日志文件，以便观察日志信息-->
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+        <!--PARTIAL默认  NONA禁止-->
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+    </settings>
+
+    <!--类型别名-->
+    <typeAliases>
+        <!--方式一，指定对象取别名,为每个实体分别取别名-->
+            <!--  type 指定全路径的实体类，alias 指定别名-->
+        <!--<typeAlias type="pojo.User" alias="a"/>-->
+        <!--方式二，指定包-->
+            <!--name,指定包路径，在sql映射文件中使用实体类时
+                会自动在实体类前追加此处设置的包名-->
+        <package name="pojo"/>
+    </typeAliases>
+
+
+
+    <!--3、配置运行环境-->
+                    <!--default（默认使用某套运行环境）-->
+    <environments default="dome1">
+                    <!--id(给运行环境取的名称)-->
+        <environment id="dome1">
+                    <!--指定要使用事务-->
+            <transactionManager type="JDBC"/>
+                    <!--指定要使用的数据源（POOLED （mybatis自带的数据源）
+                            JNDI （tomcat的数据源））-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+        <!--可能有多套运行环境,注意id唯一 -->
+        <environment id="dome2">
+            <transactionManager type=""></transactionManager>
+            <dataSource type=""></dataSource>
+        </environment>
+    </environments>
+
+    <!--4、配置mapper.xml映射文件-->
+    <mappers>
+        <mapper resource="test/dao/xml/UserDao.xml"/>
+        <mapper resource="dao/xml/UserMapper.xml" />
+        <mapper resource="dao/xml/RoleMapper.xml" />
+    </mappers>
+
+</configuration>

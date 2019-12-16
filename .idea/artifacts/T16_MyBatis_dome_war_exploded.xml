@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="T16-MyBatis-dome:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/T16_MyBatis_dome_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="T16-MyBatis-dome/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="T16-MyBatis-dome" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
